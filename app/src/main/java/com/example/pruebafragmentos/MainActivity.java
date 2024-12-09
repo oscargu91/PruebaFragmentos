@@ -26,28 +26,32 @@ public class MainActivity extends AppCompatActivity {
             return insets;
         });
 
-        FragmentManager fragmentManager = getSupportFragmentManager();
-        FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
 
-        //cargar un fragment:
-        fragmentTransaction.add(R.id.fragmentContainerView, PruebaFragment.class, null).commit();
 
+
+        // Configuración de botón y entrada de texto
         Button bt = findViewById(R.id.botonActualizar);
+        EditText tv = findViewById(R.id.plainText);
 
-        EditText tv = findViewById((R.id.plainText));
+        bt.setOnClickListener(v -> {
+            // Obtener el texto del EditText
+            String textoFormulario = tv.getText().toString();
 
-        bt.setOnClickListener(v ->{
+            // Crear un nuevo fragmento y pasar el texto al fragmento
+            Bundle bundle = new Bundle();
+            bundle.putString("texto", textoFormulario);
 
-            PruebaFragment fragment = (PruebaFragment) fragmentManager.findFragmentById(R.id.fragmentContainerView);
+            PruebaFragment pruebaFragment = new PruebaFragment();
+            pruebaFragment.setArguments(bundle);
 
-            if( fragment!=null){
-                fragment.pasarDatos(tv.getText().toString());
-
-
-            }
-
-
+            // Realizar la transacción para agregar el fragmento al contenedor
+            FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
+            transaction.add(R.id.fragmentContainerView, pruebaFragment);  // Reemplazar fragmento
+            transaction.commit();
         });
+
+
+
 
     }
 

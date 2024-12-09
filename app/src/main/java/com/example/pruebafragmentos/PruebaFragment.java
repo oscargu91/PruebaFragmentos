@@ -1,6 +1,9 @@
 package com.example.pruebafragmentos;
 
 import android.os.Bundle;
+
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -56,19 +59,21 @@ public class PruebaFragment extends Fragment {
     }
 
     @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container,
-                             Bundle savedInstanceState) {
+    public View onCreateView( LayoutInflater inflater,  ViewGroup container,
+                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         View view =  inflater.inflate(R.layout.fragment_prueba, container, false);
 
         tv = view.findViewById((R.id.tvMostrar));
+        if (getArguments() != null) {
+            // Obtén el texto de los argumentos
+            String texto = getArguments().getString("texto", "");
+            tv.setText(texto);
+        }
+
         return view;
     }
 
-    public void pasarDatos(String texto){
 
-        tv.setText(texto);
-
-    }
 
 }
